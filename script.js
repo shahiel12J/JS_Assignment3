@@ -1,13 +1,31 @@
 const choice = ["ROCK", "PAPER", "SCISSORS"];
+let playerSelect = ''
+let computerSelect = ''
 let result = '';
 let result2 = '';
 let playerScore = 0;
 let computerScore = 0;
 let score = 0;
 let gameCount = 1;
+let playerChoice = '';
 
 function computerPlay(){
     return choice[Math.floor(Math.random()*choice.length)];
+}
+
+function playerPlay(){
+    playerChoice = prompt("Please enter your choice")
+
+
+    if( playerChoice === null){
+        return "end"
+    }else
+    if ((playerChoice.toUpperCase()).toString() == "ROCK" || (playerChoice.toUpperCase()).toString() == "PAPER" || (playerChoice.toUpperCase()).toString() == "SCISSORS"){
+        return playerChoice;
+    }
+    else{
+        return "invalid"
+    }
 }
 
 function playRound(playerSelect,computerSelect){
@@ -54,15 +72,27 @@ function playRound(playerSelect,computerSelect){
 
 
 function game(){
-    for(let i = 0; i < 5; i++){
-        const playerSelect = (prompt("Please enter your choice", "Rock, Paper or Scissors")).toUpperCase();
-        const computerSelect = computerPlay();
+    alert("Welcome to Rock, Paper, Scissors")
 
-        playRound(playerSelect,computerSelect);
-        console.log("Computer Score: " + computerScore) 
-        console.log("Player Score: " + playerScore) 
-        console.log("Round " + gameCount)
-        gameCount++
+    for(let i = 0; i < 5;){
+        playerSelect = playerPlay();
+        computerSelect = computerPlay();
+
+        if (playerSelect == "invalid"){
+            alert("Invaild Choice")
+            continue;
+        }else 
+        if(playerSelect == "end"){
+            confirm("Are you sure")
+            break;
+        }else{
+            playRound(playerSelect,computerSelect);
+            console.log("Computer Score: " + computerScore) 
+            console.log("Player Score: " + playerScore) 
+            console.log("Round " + gameCount)
+            gameCount++
+            i++
+        }
     }   
 
     if(playerScore > computerScore){
@@ -72,6 +102,8 @@ function game(){
         return "You Lose"
     }else if(playerScore = computerScore){
         return "Draw"
+    }else{
+        return "Game Over"
     }
 }
 
